@@ -13,14 +13,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.example.Registration.TaskManager.Component.JWTUtil;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class JwtUtilFilter extends OncePerRequestFilter {
+public class JwtAuthFilter extends OncePerRequestFilter {
            private final JWTUtil jwtUtil;
            private  final UserRepository userRepository;
 

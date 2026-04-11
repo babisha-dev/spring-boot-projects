@@ -33,7 +33,7 @@ public class User {
         return id;
     }
 
-    public String getRole() {
+    public RoleType getRole() {
 
         return role;
     }

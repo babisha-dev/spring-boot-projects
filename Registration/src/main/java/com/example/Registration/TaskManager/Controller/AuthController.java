@@ -7,13 +7,11 @@ import com.example.Registration.TaskManager.dto.LoginRequest;
 import com.example.Registration.TaskManager.dto.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/auth/")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
@@ -25,6 +23,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse>  login(@RequestBody LoginRequest log){
-        return ResponseEntity.status(201).body(authService.login(log));
+        return ResponseEntity.status(200).body(authService.login(log));
     }
+
 }

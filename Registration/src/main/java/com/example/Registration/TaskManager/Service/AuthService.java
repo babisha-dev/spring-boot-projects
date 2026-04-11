@@ -14,29 +14,30 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private JWTUtil jwtUtil;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JWTUtil jwtUtil;
 
     public  String register(RegisterRequest req){
-  if(userRepository.existsByEmail(req.getEmail())){
+  if(userRepository.existsByUserEmail(req.getEmail())){
       throw new RuntimeException("User Already Exists");
   }
   User user=new User();
   user.setUserEmail(req.getEmail());
   user.setUserName((req.getName()));
-  user.setPassword(req.getPassword());
+  user.setPassword(passwordEncoder.encode(req.getPassword()));
   user.setRole(User.RoleType.USER);
    userRepository.save(user);
         return "User saved successfully";
     }
     public AuthResponse login(LoginRequest log){
-        User user=userRepository.findByUserEmail(log.getUserEmail()).orElseThrow(()->new RuntimeException("User does  not exists"));
+        User user=userRepository.findByUserEmail(log.getEmail()).orElseThrow(()->new RuntimeException("User does  not exists"));
         if(!passwordEncoder.matches(log.getPassword(),user.getPassword())){
-            throw new RuntimeException("Invalid Exception");
+            throw new RuntimeException("Invalid Password");
         }
-        String token=jwtUtil.generateToken(log.getUserEmail());
-        return new AuthResponse(token, user.getUserEmail(),user.getRole());
+        String token=jwtUtil.generateToken(log.getEmail());
+        return new AuthResponse(token, user.getUserEmail(),user.getRole().name());
     }
+
 
 }

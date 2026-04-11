@@ -27,7 +27,7 @@ public class JWTUtil {
         return Jwts.parserBuilder()
                 .setSigningKey(getKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
@@ -36,7 +36,7 @@ public class JWTUtil {
              Jwts.parserBuilder()
                     .setSigningKey(getKey())
                     .build()
-                    .parseClaimsJwt(token);
+                    .parseClaimsJws(token);
             return true;
         }
         catch (Exception e){
