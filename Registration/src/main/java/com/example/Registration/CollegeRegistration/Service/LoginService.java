@@ -1,10 +1,9 @@
-package com.example.Registration.Service;
+package com.example.Registration.CollegeRegistration.Service;
 
-import com.example.Registration.Model.Login;
-import com.example.Registration.Repository.LoginRepository;
+import com.example.Registration.CollegeRegistration.Model.Login;
+import com.example.Registration.CollegeRegistration.Repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 

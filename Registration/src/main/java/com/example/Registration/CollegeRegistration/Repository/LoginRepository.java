@@ -1,6 +1,6 @@
-package com.example.Registration.Repository;
+package com.example.Registration.CollegeRegistration.Repository;
 
-import com.example.Registration.Model.Login;
+import com.example.Registration.CollegeRegistration.Model.Login;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
