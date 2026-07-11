@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse>  login(@RequestBody LoginRequest log){
+    public ResponseEntity<AuthResponse>  login(@RequestBody LoginRequest log) throws AccessDeniedException {
         return ResponseEntity.status(200).body(authService.login(log));
     }
 

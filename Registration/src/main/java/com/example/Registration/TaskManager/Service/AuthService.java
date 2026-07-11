@@ -5,11 +5,12 @@ import com.example.Registration.TaskManager.Repository.UserRepository;
 import com.example.Registration.TaskManager.dto.AuthResponse;
 import com.example.Registration.TaskManager.dto.LoginRequest;
 import com.example.Registration.TaskManager.dto.RegisterRequest;
-import com.example.Registration.TaskManager.dto.UserRequest;
 import com.example.Registration.TaskManager.Modal.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.nio.file.AccessDeniedException;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +31,10 @@ public class AuthService {
    userRepository.save(user);
         return "User saved successfully";
     }
-    public AuthResponse login(LoginRequest log){
-        User user=userRepository.findByUserEmail(log.getEmail()).orElseThrow(()->new RuntimeException("User does  not exists"));
+    public AuthResponse login(LoginRequest log) throws AccessDeniedException {
+        User user=userRepository.findByUserEmail(log.getEmail()).orElseThrow(()->new AccessDeniedException("User does  not exists"));
         if(!passwordEncoder.matches(log.getPassword(),user.getPassword())){
-            throw new RuntimeException("Invalid Password");
+            throw new AccessDeniedException("Invalid Password");
         }
         String token=jwtUtil.generateToken(log.getEmail());
         return new AuthResponse(token, user.getUserEmail(),user.getRole().name());
